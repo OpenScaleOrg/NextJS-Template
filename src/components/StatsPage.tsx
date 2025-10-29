@@ -1,0 +1,40 @@
+'use client';
+
+import { Suspense, useEffect } from 'react';
+import { useSearchParams, usePathname } from "next/navigation";
+
+function StatsPageContent() {
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const ref = searchParams.get("ref");
+
+  useEffect(() => {
+    const addVisit = async () => {
+      try {
+        const data = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/stats/get-ip`);
+        const ipResponse = await data.json();
+        const ipAddress = ipResponse.ip;
+
+        await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/stats/visit`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ page: pathname, referrer: ref || '', ipAddress }),
+        });
+      } catch (error) {
+        console.error("Error adding visit:", error);
+      }
+    };
+
+    addVisit();
+  }, [pathname, ref]);
+
+  return null; // Ensures the component renders but doesn't display anything
+}
+
+export default function StatsPage() {
+  return (
+    <Suspense fallback={null}>
+      <StatsPageContent />
+    </Suspense>
+  );
+}
