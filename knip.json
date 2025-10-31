@@ -1,0 +1,5 @@
+{
+  "entry": ["src/**/*.{ts,tsx}"],
+  "ignore": ["**/*.test.*", "**/*.spec.*", "cypress/**"],
+  "ignoreDependencies": ["husky", "lint-staged", "knip"]
+}
