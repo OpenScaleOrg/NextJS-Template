@@ -53,48 +53,48 @@
 // }
 
 export const models3D: Models3D = {
-    beanie: {
-        name: "Beanie",
-        img: "/images/beanie.png",
-        url: `/studio/3D/beanie`,
-        webgl: `${process.env.NEXT_PUBLIC_MODEL_SERVER_URL}/beanie`
-    },
-    cap: {
-        name: "Cap",
-        img: "/images/cap.png",
-        url: `/studio/3D/cap`,
-        webgl: `${process.env.NEXT_PUBLIC_MODEL_SERVER_URL}/cap`
-    },
-    hangingHoodie: {
-        name: "Hanging Hoodie",
-        img: "/images/hanging-hoodie.png",
-        url: `/studio/3D/hanging-hoodie`,
-        webgl: `${process.env.NEXT_PUBLIC_MODEL_SERVER_URL}/hanging-hoodie`
-    },
-    oversizedTshirt: {
-        name: "Oversized T-Shirt",
-        img: "/images/oversized-tshirt.png",
-        url: `/studio/3D/oversized-tshirt`,
-        webgl: `${process.env.NEXT_PUBLIC_MODEL_SERVER_URL}/oversized-tshirt`
-    },
-    pantAnimated: {
-        name: "Pant Animated",
-        img: "/images/pant-animated.png",
-        url: `/studio/3D/pant-animated`,
-        webgl: `${process.env.NEXT_PUBLIC_MODEL_SERVER_URL}/pant-animated`
-    },
-    tshirt: {
-        name: "tshirt",
-        img: "/images/tshirt.png",
-        url: `/studio/3D/tshirt`,
-        webgl: `${process.env.NEXT_PUBLIC_MODEL_SERVER_URL}/tshirt`
-    },
-    tshirtAnimated: {
-        name: "tshirt-animated",
-        img: "/images/tshirt-animated.png",
-        url: `/studio/3D/tshirt-animated`,
-        webgl: `${process.env.NEXT_PUBLIC_MODEL_SERVER_URL}/tshirt-animated`
-    },
+	beanie: {
+		name: 'Beanie',
+		img: '/images/beanie.png',
+		url: `/studio/3D/beanie`,
+		webgl: `${process.env.NEXT_PUBLIC_MODEL_SERVER_URL}/beanie`,
+	},
+	cap: {
+		name: 'Cap',
+		img: '/images/cap.png',
+		url: `/studio/3D/cap`,
+		webgl: `${process.env.NEXT_PUBLIC_MODEL_SERVER_URL}/cap`,
+	},
+	hangingHoodie: {
+		name: 'Hanging Hoodie',
+		img: '/images/hanging-hoodie.png',
+		url: `/studio/3D/hanging-hoodie`,
+		webgl: `${process.env.NEXT_PUBLIC_MODEL_SERVER_URL}/hanging-hoodie`,
+	},
+	oversizedTshirt: {
+		name: 'Oversized T-Shirt',
+		img: '/images/oversized-tshirt.png',
+		url: `/studio/3D/oversized-tshirt`,
+		webgl: `${process.env.NEXT_PUBLIC_MODEL_SERVER_URL}/oversized-tshirt`,
+	},
+	pantAnimated: {
+		name: 'Pant Animated',
+		img: '/images/pant-animated.png',
+		url: `/studio/3D/pant-animated`,
+		webgl: `${process.env.NEXT_PUBLIC_MODEL_SERVER_URL}/pant-animated`,
+	},
+	tshirt: {
+		name: 'tshirt',
+		img: '/images/tshirt.png',
+		url: `/studio/3D/tshirt`,
+		webgl: `${process.env.NEXT_PUBLIC_MODEL_SERVER_URL}/tshirt`,
+	},
+	tshirtAnimated: {
+		name: 'tshirt-animated',
+		img: '/images/tshirt-animated.png',
+		url: `/studio/3D/tshirt-animated`,
+		webgl: `${process.env.NEXT_PUBLIC_MODEL_SERVER_URL}/tshirt-animated`,
+	},
 };
 
 // export const models2D: Models2D = {
@@ -136,42 +136,41 @@ export const models3D: Models3D = {
 //     },
 // };
 
-
 export const models2D: Models2D = {
-    flatLayStyle: {
-        name: "Flat Lay Style",
-        img: "/images/2d1.png",
-        url: `/studio`,
-        webgl: `${process.env.NEXT_PUBLIC_MODEL_SERVER_URL}/all`
-    },
-    hangingDisplay: {
-        name: "Hanging Display",
-        img: "/images/2d2.png",
-        url: `/studio`,
-        webgl: `${process.env.NEXT_PUBLIC_MODEL_SERVER_URL}/all`
-    },
-    foldedView: {
-        name: "Folded View",
-        img: "/images/2d3.png",
-        url: `/studio`,
-        webgl: `${process.env.NEXT_PUBLIC_MODEL_SERVER_URL}/all`
-    },
-    modelWearing: {
-        name: "Model Wearing",
-        img: "/images/2d4.png",
-        url: `/studio`,
-        webgl: `${process.env.NEXT_PUBLIC_MODEL_SERVER_URL}/all`
-    },
-    studioShot: {
-        name: "Studio Shot",
-        img: "/images/2d5.png",
-        url: `/studio`,
-        webgl: `${process.env.NEXT_PUBLIC_MODEL_SERVER_URL}/all`
-    },
-    lifestyle: {
-        name: "Lifestyle",
-        img: "/images/2d6.png",
-        url: `/studio`,
-        webgl: `${process.env.NEXT_PUBLIC_MODEL_SERVER_URL}/all`
-    },
+	flatLayStyle: {
+		name: 'Flat Lay Style',
+		img: '/images/2d1.png',
+		url: `/studio`,
+		webgl: `${process.env.NEXT_PUBLIC_MODEL_SERVER_URL}/all`,
+	},
+	hangingDisplay: {
+		name: 'Hanging Display',
+		img: '/images/2d2.png',
+		url: `/studio`,
+		webgl: `${process.env.NEXT_PUBLIC_MODEL_SERVER_URL}/all`,
+	},
+	foldedView: {
+		name: 'Folded View',
+		img: '/images/2d3.png',
+		url: `/studio`,
+		webgl: `${process.env.NEXT_PUBLIC_MODEL_SERVER_URL}/all`,
+	},
+	modelWearing: {
+		name: 'Model Wearing',
+		img: '/images/2d4.png',
+		url: `/studio`,
+		webgl: `${process.env.NEXT_PUBLIC_MODEL_SERVER_URL}/all`,
+	},
+	studioShot: {
+		name: 'Studio Shot',
+		img: '/images/2d5.png',
+		url: `/studio`,
+		webgl: `${process.env.NEXT_PUBLIC_MODEL_SERVER_URL}/all`,
+	},
+	lifestyle: {
+		name: 'Lifestyle',
+		img: '/images/2d6.png',
+		url: `/studio`,
+		webgl: `${process.env.NEXT_PUBLIC_MODEL_SERVER_URL}/all`,
+	},
 };

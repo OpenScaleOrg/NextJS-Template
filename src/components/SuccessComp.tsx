@@ -2,34 +2,29 @@
 
 import { contents } from '@/lib/data/website';
 import { useRouter } from 'next/navigation';
-import React, { useEffect } from 'react'
+import React, { useEffect } from 'react';
 
-const SuccessComp = (
-    {text}: {text: string}
-) => {
+const SuccessComp = ({ text }: { text: string }) => {
+	const router = useRouter();
 
-    const router = useRouter();
+	useEffect(() => {
+		const timer = setTimeout(() => {
+			router.push('/signin'); // Redirect to /signin after 5 seconds
+		}, 5000);
 
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            router.push("/signin"); // Redirect to /signin after 5 seconds
-        }, 5000);
+		return () => clearTimeout(timer); // Cleanup timeout on unmount
+	}, [router]);
 
-        return () => clearTimeout(timer); // Cleanup timeout on unmount
-    }, [router]);
+	return (
+		<div className="w-full h-[calc(100vh-80px)] flex flex-col items-center justify-center">
+			<main className="w-full h-full flex flex-col items-center justify-center">
+				<section className="w-full h-full flex flex-col justify-center items-center md:gap-20">
+					<h1 className="w-full font-extrabold text-[60px] leading-[60px] text-main-foreground text-center">{text}</h1>
+					<p className="custom-display text-primary">{contents.text26}</p>
+				</section>
+			</main>
+		</div>
+	);
+};
 
-    return (
-      <div className="w-full h-[calc(100vh-80px)] flex flex-col items-center justify-center">
-        <main className="w-full h-full flex flex-col items-center justify-center">
-          <section className="w-full h-full flex flex-col justify-center items-center md:gap-20">
-            <h1 className='w-full font-extrabold text-[60px] leading-[60px] text-main-foreground text-center'>
-              {text}
-            </h1>
-            <p className="custom-display text-primary">{contents.text26}</p>
-          </section>
-        </main>
-      </div>
-    );
-}
-
-export default SuccessComp
+export default SuccessComp;

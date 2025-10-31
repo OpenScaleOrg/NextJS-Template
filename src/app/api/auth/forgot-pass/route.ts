@@ -5,39 +5,39 @@ import ForgotPassMapping from '@/lib/models/forgotPassMapping';
 import { transporterCommon } from '@/lib/utils/email';
 
 export async function POST(req: Request) {
-  try {
-    const { email } = await req.json();
+	try {
+		const { email } = await req.json();
 
-    if (!email) {
-      return NextResponse.json({ error: 'Email and password are required' }, { status: 400 });
-    }
+		if (!email) {
+			return NextResponse.json({ error: 'Email and password are required' }, { status: 400 });
+		}
 
-    await connectDB();
+		await connectDB();
 
-    // Check if user exists
-    const user = await User.findOne({ email });
+		// Check if user exists
+		const user = await User.findOne({ email });
 
-    if (!user) {
-      return NextResponse.json({ error: 'Invalid email or password' }, { status: 401 });
-    }
+		if (!user) {
+			return NextResponse.json({ error: 'Invalid email or password' }, { status: 401 });
+		}
 
-    const code = Math.floor(100000 + Math.random() * 900000)
+		const code = Math.floor(100000 + Math.random() * 900000);
 
-    const userForgot = await ForgotPassMapping.findOne({ email });
+		const userForgot = await ForgotPassMapping.findOne({ email });
 
-    if(userForgot) {
-      userForgot.code = code
-      userForgot.save()
-    } else {
-      const forgotUser = new ForgotPassMapping({email: user.email, code: code})
-      forgotUser.save()
-    }
+		if (userForgot) {
+			userForgot.code = code;
+			userForgot.save();
+		} else {
+			const forgotUser = new ForgotPassMapping({ email: user.email, code: code });
+			forgotUser.save();
+		}
 
-    const mailOptions = {
-      from: process.env.EMAIL_USER,
-      to: user.email,
-      subject: 'Verify Your Account',
-      html: `
+		const mailOptions = {
+			from: process.env.EMAIL_USER,
+			to: user.email,
+			subject: 'Verify Your Account',
+			html: `
         <div style="font-family: Arial, sans-serif; padding: 20px; background-color: #f4f4f4;">
           <div style="max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
             <h2 style="color: #4CAF50; text-align: center;">Reset Your Password</h2>
@@ -55,15 +55,14 @@ export async function POST(req: Request) {
             <p style="font-size: 12px; text-align: center; color: #999;">&copy; ${new Date().getFullYear()} Your Company Name. All rights reserved.</p>
           </div>
         </div>
-      `
-    };
+      `,
+		};
 
-    await transporterCommon.sendMail(mailOptions);
+		await transporterCommon.sendMail(mailOptions);
 
-    return NextResponse.json({ error: 'Verification Code sent' }, { status: 200 });
-  } catch (error) {
-    console.error('Error during login:', error);
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
-  }
+		return NextResponse.json({ error: 'Verification Code sent' }, { status: 200 });
+	} catch (error) {
+		console.error('Error during login:', error);
+		return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+	}
 }
-

@@ -2,39 +2,34 @@
 
 import { Suspense, useEffect } from 'react';
 
-function ModelStatsPageContent(
-    { model }: { model: string }
-) {
+function ModelStatsPageContent({ model }: { model: string }) {
+	useEffect(() => {
+		const addVisit = async () => {
+			try {
+				const data = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/stats/get-ip`);
+				const ipResponse = await data.json();
+				const ipAddress = ipResponse.ip;
 
-  useEffect(() => {
-    const addVisit = async () => {
-      try {
-        const data = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/stats/get-ip`);
-        const ipResponse = await data.json();
-        const ipAddress = ipResponse.ip;
+				await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/stats/model-visit`, {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({ objectModel: model, ipAddress }),
+				});
+			} catch (error) {
+				console.error('Error adding visit:', error);
+			}
+		};
 
-        await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/stats/model-visit`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ objectModel: model, ipAddress }),
-        });
-      } catch (error) {
-        console.error("Error adding visit:", error);
-      }
-    };
+		addVisit();
+	}, [model]);
 
-    addVisit();
-  }, [model]);
-
-  return null; // Ensures the component renders but doesn't display anything
+	return null; // Ensures the component renders but doesn't display anything
 }
 
-export default function ModelStatsPage(
-    {model}: {model: string}
-) {
-  return (
-    <Suspense fallback={null}>
-      <ModelStatsPageContent model={model}/>
-    </Suspense>
-  );
+export default function ModelStatsPage({ model }: { model: string }) {
+	return (
+		<Suspense fallback={null}>
+			<ModelStatsPageContent model={model} />
+		</Suspense>
+	);
 }

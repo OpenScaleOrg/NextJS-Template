@@ -27,20 +27,12 @@
 
 // export default UnityWebGL;
 
-const UnityWebGL = (
-    { model }: { model: string }
-) => {
-    return (
-        <div className="w-full h-[calc(100vh-80px)]">
-            <iframe
-                src={model}
-                width="100%"
-                height="100%"
-                allowFullScreen
-                className="border-0"
-            />
-        </div>
-    );
+const UnityWebGL = ({ model }: { model: string }) => {
+	return (
+		<div className="w-full h-[calc(100vh-80px)]">
+			<iframe src={model} width="100%" height="100%" allowFullScreen className="border-0" />
+		</div>
+	);
 };
 
 export default UnityWebGL;

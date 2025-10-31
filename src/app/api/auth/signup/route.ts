@@ -6,33 +6,38 @@ import User from '@/lib/models/user';
 import { transporterCommon } from '@/lib/utils/email';
 
 export async function POST(req: Request) {
-  try {
-    const { email, password, firstName, lastName } = await req.json();
+	try {
+		const { email, password, firstName, lastName } = await req.json();
 
-    if (!email || !password || !firstName || !lastName) {
-      return NextResponse.json({ error: 'Email, password, first name, and last name are required' }, { status: 400 });
-    }
+		if (!email || !password || !firstName || !lastName) {
+			return NextResponse.json({ error: 'Email, password, first name, and last name are required' }, { status: 400 });
+		}
 
-    await connectDB();
+		await connectDB();
 
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return NextResponse.json({ error: 'Email is already registered' }, { status: 409 });
-    }
+		const existingUser = await User.findOne({ email });
+		if (existingUser) {
+			return NextResponse.json({ error: 'Email is already registered' }, { status: 409 });
+		}
 
-    await UnverifiedUser.findOneAndDelete({ email });
+		await UnverifiedUser.findOneAndDelete({ email });
 
-    // Hash password
-    const hashedPassword = await bcrypt.hash(password, 10);
+		// Hash password
+		const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Save user in MongoDB
-    const user = new UnverifiedUser({ email: email, hashedPassword: hashedPassword, firstName: firstName, lastName: lastName });
+		// Save user in MongoDB
+		const user = new UnverifiedUser({
+			email: email,
+			hashedPassword: hashedPassword,
+			firstName: firstName,
+			lastName: lastName,
+		});
 
-    const mailOptions = {
-      from: process.env.EMAIL_USER,
-      to: email,
-      subject: 'Verify Your Account',
-      html: `
+		const mailOptions = {
+			from: process.env.EMAIL_USER,
+			to: email,
+			subject: 'Verify Your Account',
+			html: `
           <div style="font-family: Arial, sans-serif; padding: 20px; background-color: #f4f4f4;">
           <div style="max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
               <h2 style="color: #4CAF50; text-align: center;">Verify Your Account</h2>
@@ -51,16 +56,16 @@ export async function POST(req: Request) {
               <p style="font-size: 12px; text-align: center; color: #999;">&copy; ${new Date().getFullYear()} Your Company Name. All rights reserved.</p>
           </div>
           </div>
-      `
-    };
+      `,
+		};
 
-    await transporterCommon.sendMail(mailOptions);
+		await transporterCommon.sendMail(mailOptions);
 
-    await user.save();
+		await user.save();
 
-    return NextResponse.json({ message: 'User registered. Check your email to verify.' }, { status: 201 });
-  } catch (error) {
-    console.error(error);
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
-  }
+		return NextResponse.json({ message: 'User registered. Check your email to verify.' }, { status: 201 });
+	} catch (error) {
+		console.error(error);
+		return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+	}
 }

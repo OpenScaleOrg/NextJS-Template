@@ -3,25 +3,24 @@ import connectDB from '@/lib/mongodb';
 import Visit from '@/lib/models/visit';
 
 export async function POST(req: Request) {
-  try {
+	try {
+		await connectDB();
 
-    await connectDB();
+		const { page, referrer, ipAddress } = await req.json();
 
-    const { page, referrer, ipAddress } = await req.json();
+		if (!page || !ipAddress) {
+			return NextResponse.json({ error: 'Page and IP Address are required' }, { status: 400 });
+		}
 
-    if (!page || !ipAddress) {
-      return NextResponse.json({ error: 'Page and IP Address are required' }, { status: 400 });
-    }
+		const newVisit = await Visit.create({
+			visitTime: new Date(),
+			page,
+			referrer,
+			ipAddress,
+		});
 
-    const newVisit = await Visit.create({
-      visitTime: new Date(),
-      page,
-      referrer,
-      ipAddress
-    });
-
-    return NextResponse.json({ success: true, data: newVisit }, { status: 201 });
-  } catch (error) {
-    return NextResponse.json({ success: false, error: (error as Error).message }, { status: 500 });
-  }
+		return NextResponse.json({ success: true, data: newVisit }, { status: 201 });
+	} catch (error) {
+		return NextResponse.json({ success: false, error: (error as Error).message }, { status: 500 });
+	}
 }
